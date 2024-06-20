@@ -10,9 +10,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const GA_TRACKING_ID = 'G-4RKD3ZYYSF'
+
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}></script>
+          <script>
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', ${GA_TRACKING_ID});
+            `}
+          </script>
+
+      </body>
     </html>
   )
 }
