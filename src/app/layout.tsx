@@ -8,6 +8,24 @@ export const metadata = {
   description: '簡単・高速なレスポンシブデザインチェックツール。複数デバイス同時プレビュー、カスタムサイズ設定可能。ウェブデザイナー・開発者向けの必須ツールでサイトの表示を最適化。無料で今すぐ使えます！',
 }
 
+const faqSchema ={
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "レスポンシブチェックツール",
+  "description": "Webサイトのレスポンシブ対応をチェックするツール",
+  "applicationCategory": "WebApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  },
+  "creator": {
+    "@type": "Person",
+    "name": "RollTall"
+  }
+}
+
 
 export default function RootLayout({
   children,
@@ -19,6 +37,9 @@ export default function RootLayout({
     <html lang="jp">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="application/ld+json">
+            {JSON.stringify(faqSchema)}
+        </script>
         <GoogleAnalytics />
       </head>
       <body>
