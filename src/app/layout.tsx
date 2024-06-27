@@ -27,6 +27,7 @@ const faqSchema ={
 }
 
 
+
 export default function RootLayout({
   children,
 }: {
@@ -37,6 +38,20 @@ export default function RootLayout({
     <html lang="jp">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {/* OGP */}
+        <meta property="og:url" content="https://responsive-clear.online" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="ResponsiveClear" />
+        <meta property="og:site_name" content="ResponsiveClear" />
+        <meta property="og:image" content="https://responsive-clear.online/Logo.png" />
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@RollTall" />
+        <meta name="twitter:description" content="サイトのレスポンシブチェックツール" />
+        <meta name="twitter:image" content="https://responsive-clear.online/Logo.png" />
+
+        {/* Schema.org */}
         <script type="application/ld+json">
             {JSON.stringify(faqSchema)}
         </script>
