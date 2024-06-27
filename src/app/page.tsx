@@ -134,7 +134,7 @@ const handleButtonClick = () => {
                 検証モードでforeignObjectを選択し、計算済みタブから375px :
                 667pxの比率になっていると確認できます。
               </p>
-              1.781
+             
               <svg
                 width={150}
                 height="267.15"
@@ -190,7 +190,6 @@ const handleButtonClick = () => {
                 iphone12/iPhone12Pro/iPhone13/iPhone13Pro/iPhone14/iPhone14Pro
               </h3>
               <p>cssピクセル : 390x844</p>
-              1:2.164
               <svg
                 width={150}
                 height="324.6"
@@ -241,7 +240,6 @@ const handleButtonClick = () => {
                 </foreignObject>
               </svg>
             </div>
-            <div className="smartphone-item">コンテンツ3</div>
           </div>
           {/*
     <svg width="375" height="667" viewBox="0 0 375 667" xmlns="http://www.w3.org/2000/svg">
