@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import React, { useState } from 'react';
+import TwitterShareButton from './components/TwitterShareButton';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -62,6 +63,9 @@ const handleButtonClick = () => {
     className="flex items-center justify-center text-gray-200 text-2xl my-5"
     style={{ color: "black", margin: 0 }}
   >
+
+    <TwitterShareButton />
+
     <div className="text-4xl ml-3 mr-3">ResponsiveClear</div>
     <div className="flex-grow px-4 p-5">
       <input

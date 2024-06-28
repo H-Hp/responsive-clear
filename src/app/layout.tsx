@@ -6,7 +6,34 @@ import { GoogleAnalytics } from "./GoogleAnalytics";
 export const metadata = {
   title: 'Responsive Clear',
   description: '簡単・高速なレスポンシブデザインチェックツール。複数デバイス同時プレビュー、カスタムサイズ設定可能。ウェブデザイナー・開発者向けの必須ツールでサイトの表示を最適化。無料で今すぐ使えます！',
+  openGraph: {
+    title: 'ResponsiveClear',
+    description: 'サイトのレスポンシブチェックツール',
+    url: 'https://responsive-clear.online',
+    siteName: 'ResponsiveClear',
+    images: [
+      {
+        url: 'https://responsive-clear.online/Logo.png',
+        width: 240,
+        height: 240,
+      },
+    ],
+    locale: 'ja_JP',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    site: '@RollTall',
+    creator: '@YourTwitterHandle',
+    title: 'ResponsiveClear',
+    description: 'サイトのレスポンシブチェックツール',
+    images: ['https://responsive-clear.online/Logo.png'],
+  },
 }
+
+//動的レンダリング矯正/vercelとnextの問題でxのシェアカードを表示させるため
+export const dynamic = 'force-dynamic'
+
 
 const faqSchema ={
   "@context": "https://schema.org",
@@ -38,19 +65,6 @@ export default function RootLayout({
     <html lang="jp">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        {/* OGP */}
-        <meta property="og:url" content="https://responsive-clear.online" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="ResponsiveClear" />
-        <meta property="og:site_name" content="ResponsiveClear" />
-        <meta property="og:image" content="https://responsive-clear.online/Logo.png" />
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@RollTall" />
-        <meta name="twitter:description" content="サイトのレスポンシブチェックツール" />
-        <meta name="twitter:image" content="https://responsive-clear.online/Logo.png" />
-
         {/* Schema.org */}
         <script type="application/ld+json">
             {JSON.stringify(faqSchema)}
