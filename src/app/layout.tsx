@@ -9,6 +9,11 @@ export const metadata = {
   alternates: {
     canonical: 'https://responsive-clear.online',
   },
+  icons: {
+    icon: '/favicon.svg',
+    // Apple Touch Icon
+    apple: '/favicon256x256.png',
+  },
   openGraph: {
     title: 'ResponsiveClear',
     description: 'サイトのレスポンシブチェックツール',
