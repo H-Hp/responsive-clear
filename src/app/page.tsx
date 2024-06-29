@@ -13,9 +13,11 @@ export default function Home() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
+    setIsValid(validateURL(event.target.value));
   };
 
   const handleButtonClick = () => {
+    
     const devices = ["iphone1", "iphone2", "ipad1", "pc1"];
     devices.forEach((device) => {
       const iframe = document.getElementById(
@@ -24,21 +26,33 @@ export default function Home() {
       if (iframe) {
         iframe.src = url;
       }
+      
     });
   };
+
+
+  //URLのバリデーション
+  //const [url, setUrl] = useState('');
+  const [isValid, setIsValid] = useState(true);
+  const validateURL = (input: string) => {
+    try {
+      new URL(input);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
 
   //モーダルの開閉
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
-
   const openModal = useCallback(() => {
     setIsModalOpen(true);
   }, []);
-
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
   }, []);
-
   // モーダルの外側をクリックしたときの処理
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
@@ -51,19 +65,22 @@ export default function Home() {
     },
     [closeModal],
   );
-
+  //モーダル外をクリックしたときにモーダルを閉じる
   useEffect(() => {
     if (isModalOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
     }
-
     // クリーンアップ関数
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isModalOpen, handleOutsideClick]);
+
+
+
+
 
   return (
     <div className="flex flex-col justify-between h-screen mx-auto max-w-full">
@@ -97,6 +114,9 @@ export default function Home() {
   https://weathernews.jp/onebox/tenki/tokyo/13212/
   */}
         </div>
+        {!isValid && url !== '' && <p style={{color: 'red'}}>無効なURLです</p>}
+
+
       </header>
       <a
         className="fixed left-4 top-4 md:right-14 md:top-6 text-xl text-gray"
