@@ -336,7 +336,13 @@ const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     {/*<button id="openModal">モーダルを開く</button>*/}
     {isModalOpen && (
-    <div id="myModal" className="modal">
+    <div 
+      id="myModal"
+      className="modal"
+      aria-hidden="false"
+      role="dialog" 
+      aria-labelledby="about"
+    >
     <div className="modal-content">
     <section className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
   <div className="max-w-7xl mx-auto">
