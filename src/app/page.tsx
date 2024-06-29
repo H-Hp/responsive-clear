@@ -3,35 +3,12 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import React, { useState } from 'react';
+import { useEffect, useCallback, useRef} from 'react';
 import TwitterShareButton from './components/TwitterShareButton';
 
 const inter = Inter({ subsets: ['latin'] })
 
-
-
-
 export default function Home() {
-
-  /*
-  //documentを使う関数を入れる
-  if (typeof window === 'object') {
-    //documentを使う関数を入れる
-    const button = document.getElementById('change-btn') as HTMLButtonElement;
-
-    button.addEventListener('click', function() {
-      const inputElement = document.getElementById('url-input') as HTMLInputElement;
-      const input_url = inputElement.value;
-      console.log(input_url); // 入力された値が出力されます
-    
-      const devices = ['iphone1', 'iphone2', 'ipad1', 'pc1'];
-      
-      devices.forEach(device => {
-        const iframe = document.getElementById(`${device}_iframe`) as HTMLIFrameElement;
-        iframe.src = input_url;
-      });
-    });
-}
-    */
 
 const [url, setUrl] = useState<string>('');
 
@@ -49,15 +26,41 @@ const handleButtonClick = () => {
   });
 };
 
+//モーダルの開閉
+const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  return (
-    
+  const openModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  // モーダルの外側をクリックしたときの処理
+  const handleOutsideClick = useCallback((event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      closeModal();
+    }
+  }, [closeModal]);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    // クリーンアップ関数
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isModalOpen, handleOutsideClick]);
   
 
+  return (
     <div className="flex flex-col justify-between h-screen mx-auto max-w-full">
-
-
-   
 
   <header
     className="flex items-center justify-center text-gray-200 text-2xl my-5"
@@ -109,7 +112,7 @@ const handleButtonClick = () => {
       </svg>
     </button>
   </a>
-  <button className="fixed right-4 top-4 md:right-6 md:top-6 text-xl text-gray animate-pulse-once info-button">
+  <button onClick={openModal} className="fixed right-4 top-4 md:right-6 md:top-6 text-xl text-gray animate-pulse-once info-button">
     <svg
       stroke="currentColor"
       fill="currentColor"
@@ -245,73 +248,7 @@ const handleButtonClick = () => {
               </svg>
             </div>
           </div>
-          {/*
-    <svg width="375" height="667" viewBox="0 0 375 667" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="0" width="375" height="667" rx="40" ry="40" fill="#1c1c1e" />
-  <rect x="10" y="10" width="355" height="647" rx="30" ry="30" fill="#000" />
-  
-  <path d="M 158 0 
-           L 217 0 
-           Q 227 0 227 10 
-           L 227 25 
-           Q 227 35 217 35 
-           L 158 35 
-           Q 148 35 148 25 
-           L 148 10 
-           Q 148 0 158 0 
-           Z" fill="#1c1c1e" />
-  
-  <circle cx="187.5" cy="640" r="20" fill="#2c2c2e" />
-  
-  <foreignObject x="10" y="35" width="355" height="592">
-    <iframe xmlns="http://www.w3.org/1999/xhtml"
-            src="https://weathernews.jp/onebox/tenki/tokyo/13212"
-            style="width:100%; height:100%; border: none;">
-    </iframe>
-  </foreignObject>
-</svg>
-*/}
-          {/*
-  <svg width="280" height="500" viewBox="0 0 375 812" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="375" height="812" rx="40" ry="40" fill="#1c1c1e" />
-      
-      <rect x="12" y="12" width="351" height="788" rx="30" ry="30" fill="#000" />
-      
-      <path d="M 158 0 
-               L 217 0 
-               Q 227 0 227 10 
-               L 227 25 
-               Q 227 35 217 35 
-               L 158 35 
-               Q 148 35 148 25 
-               L 148 10 
-               Q 148 0 158 0 
-               Z" fill="#1c1c1e" />
-      
-      <foreignObject x="12" y="12" width="351" height="788">
-        <iframe xmlns="http://www.w3.org/1999/xhtml"
-                src="https://weathernews.jp/onebox/tenki/tokyo/13212"
-                style="width:100%; height:100%; border: none;">
-        </iframe>
-      </foreignObject>
-    </svg>
-*/}
-          {/*
-  <div class="iphone7-wrap">
-      <iframe src="https://weathernews.jp/onebox/tenki/tokyo/13212/" frameborder="0"></iframe>
-    </div>
 
- 
-
-    <svg width="500" height="800" viewBox="0 0 200 300">
-      <iframe src="https://weathernews.jp/onebox/tenki/tokyo/13212/" frameborder="0" ></iframe>
-      <image href="phone_035.svg" x="0" y="0" width="200" height="300" />
-    </svg>
- */}
-          {/*
-  <img src="iPhone.png" alt="" id="iphone7_img">
-  <iframe frameborder="0" id="iphone7_iframe" src="https://weathernews.jp/onebox/tenki/tokyo/13212/"></iframe>
-  */}
           {/*タブレッド/iPad*/}
           <h3>iPad pro12.9インチモデル</h3>
           <p>cssピクセル : 1024 × 1366</p>
@@ -352,24 +289,7 @@ const handleButtonClick = () => {
               ></iframe>
             </foreignObject>
           </svg>
-          {/*
-<svg width="330" height="600" viewBox="0 0 768 1024" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="768" height="1024" rx="50" ry="50" fill="#b1b3b6" />
-    
-    <rect x="20" y="20" width="728" height="984" rx="10" ry="10" fill="#000" />
-    
-    <circle cx="384" cy="1004" r="10" fill="#e2e3e4" />
-    
-    <circle cx="384" cy="20" r="5" fill="#3c3d3d" />
-    
-    <foreignObject x="20" y="20" width="728" height="984">
-<iframe xmlns="http://www.w3.org/1999/xhtml"
-        src="https://weathernews.jp/onebox/tenki/tokyo/13212"
-        style="width:100%; height:100%; border: none;">
-</iframe>
-    </foreignObject>
-  </svg>
-*/}
+
           {/*PC*/}
           <h3>PC</h3>
           <p>cssピクセル : 1024 × 1366</p>
@@ -405,24 +325,6 @@ const handleButtonClick = () => {
               ></iframe>
             </foreignObject>
           </svg>
-          {/*
-  <svg width="600" height="400" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect x="100" y="50" width="1000" height="600" rx="20" ry="20" fill="#888" />
-    
-    <rect x="120" y="70" width="960" height="560" fill="#000" />
-    
-    <rect x="50" y="650" width="1100" height="100" rx="10" ry="10" fill="#999" />
-    
-    <rect x="500" y="690" width="200" height="40" rx="5" ry="5" fill="#777" />
-    
-    <foreignObject x="120" y="70" width="960" height="560">
-<iframe xmlns="http://www.w3.org/1999/xhtml"
-        src="https://weathernews.jp/onebox/tenki/tokyo/13212"
-        style="width:100%; height:100%; border: none;">
-</iframe>
-    </foreignObject>
-  </svg>
-*/}
           <p>
             デバイスを増やしすぎると画面が重くなるため、シェア率の高いデバイスのみになります
           </p>
@@ -430,9 +332,55 @@ const handleButtonClick = () => {
       </div>
     </div>
   </div>
+
+
+    {/*<button id="openModal">モーダルを開く</button>*/}
+    {isModalOpen && (
+    <div id="myModal" className="modal">
+    <div className="modal-content">
+    <section className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div className="max-w-7xl mx-auto">
+  <br /><br />
+  <h2 className="text-3xl font-bold text-center mb-8 mt-8">レスポンシブクリアとは</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+        <p className="text-gray-600">サイトのレスポンシブ性を簡単に確認できる無料Webサービスです。</p>
+      </div>
+  </div>
+<br /><br />
+    <h2 className="text-3xl font-bold text-center mb-8 mt-8">主な機能</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+        <h3 className="text-xl font-semibold text-indigo-600 mb-3">マルチデバイス対応</h3>
+        <p className="text-gray-600">iPhone、iPad、PC など、さまざまな端末でのレイアウトを一度に確認できます。</p>
+      </div>
+      <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+        <h3 className="text-xl font-semibold text-indigo-600 mb-3">簡単操作</h3>
+        <p className="text-gray-600">URLを入力するだけで、すぐにチェックを開始できます。</p>
+      </div>
+      <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+        <h3 className="text-xl font-semibold text-indigo-600 mb-3">リアルタイムプレビュー</h3>
+        <p className="text-gray-600">各デバイスでのレイアウトをリアルタイムで確認できます。</p>
+      </div>
+      <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+        <h3 className="text-xl font-semibold text-indigo-600 mb-3">完全無料</h3>
+        <p className="text-gray-600">登録不要で、完全無料でご利用いただけます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+   
+      <button  
+        id="reserve-btn" 
+        onClick={closeModal} 
+        className="inline-flex w-full gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-600 font-semibold text-zinc-100 hover:bg-zinc-400 active:bg-zinc-800 active:text-zinc-100/70 my-2 uppercase active:scale-[98%] transition-transform duration-100"
+        style={{ backgroundColor: "#635BFF", color: "white" }}>
+        閉じる
+        </button>
+    </div>
+  </div>
+  )}
+   
 </div>
-
-
-
   )
 }
