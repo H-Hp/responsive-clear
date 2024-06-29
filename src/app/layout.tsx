@@ -58,6 +58,10 @@ const faqSchema ={
   "creator": {
     "@type": "Person",
     "name": "RollTall"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "RollTall"
   }
 }
 
