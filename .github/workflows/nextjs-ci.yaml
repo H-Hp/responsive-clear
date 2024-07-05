@@ -34,9 +34,9 @@ jobs:
         # Node.jsのセットアップに必要な設定
         uses: actions/setup-node@v3
         with:
-	    # Node.jsのバージョンを指定
+          # Node.jsのバージョンを指定
           node-version: ${{ matrix.node-version }}
-	  # yarnのキャッシュを使用する設定
+          # yarnのキャッシュを使用する設定
           cache: 'yarn'
       # 作業に任意の名前を定義
       - name: Install dependencies
