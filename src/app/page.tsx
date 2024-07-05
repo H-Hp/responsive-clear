@@ -6,9 +6,11 @@ import React, { useState } from "react";
 import { useEffect, useCallback, useRef} from "react";
 import TwitterShareButton from "./components/TwitterShareButton";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  
   const [url, setUrl] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
