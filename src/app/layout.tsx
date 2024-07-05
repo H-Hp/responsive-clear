@@ -97,11 +97,33 @@ export default function RootLayout({
         <script type="application/ld+json">
             {JSON.stringify(faqSchema)}
         </script>
+
+        {/* 多言語・hreflangタグ --> */}
+        <link
+          rel="alternate"
+          hrefLang="ja"
+          href={fullUrl}
+        />
+        <link
+          rel="alternate"
+          hrefLang="en"
+          href={fullUrl}
+        />
+        <link
+          rel="alternate"
+          hrefLang="zh-CN"
+          href={fullUrl}
+        />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={fullUrl}
+        />
         
         <GoogleAnalytics />
       </head>
       <body>
-      {fullUrl}
+      
         {children}
 
       </body>
