@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const { i18n } = require('./i18n')
 
 const nextConfig = {
   experimental: {
@@ -7,4 +6,10 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+//module.exports = nextConfig
+
+
+const createNextIntlPlugin = require('next-intl/plugin');
+const withNextIntl = createNextIntlPlugin();
+module.exports = withNextIntl(nextConfig);
+

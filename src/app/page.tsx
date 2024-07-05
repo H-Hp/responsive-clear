@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import React, { useState } from "react";
 import { useEffect, useCallback, useRef} from "react";
 import TwitterShareButton from "./components/TwitterShareButton";
-
+import {useTranslations} from 'next-intl';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -80,6 +80,9 @@ export default function Home() {
     };
   }, [isModalOpen, handleOutsideClick]);
 
+  //
+  const t = useTranslations('Index');
+  //return <h1>{t('title')}</h1>;
 
   return (
     <div className="flex flex-col justify-between h-screen mx-auto max-w-full">
@@ -88,6 +91,8 @@ export default function Home() {
         style={{ color: "black", margin: 0 }}
       >
         <TwitterShareButton />
+
+        <h1>{t('title')}</h1>
 
         <div className="text-4xl ml-3 mr-3">ResponsiveClear</div>
         <div className="flex-grow px-4 p-5">

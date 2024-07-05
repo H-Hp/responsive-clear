@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { GoogleAnalytics } from "./GoogleAnalytics";
 
 import { headers } from 'next/headers';
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale, getMessages} from 'next-intl/server';
 
 
 export const metadata = {
@@ -71,12 +73,13 @@ const faqSchema ={
 
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
 
+  
   
   let fullUrl;
   // サーバーサイドレンダリング時
@@ -90,8 +93,17 @@ export default function RootLayout({
   // クライアントサイドレンダリング時
   //return <div>完全なURL（クライアントサイド）: {fullUrl}</div>;
 
+
+ 
+  //i18n化
+  const locale = await getLocale();
+ 
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
   return (
-    <html lang="jp">
+    <html lang={locale}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* Schema.org */}
@@ -125,7 +137,10 @@ export default function RootLayout({
       </head>
       <body>
       
-        {children}
+      <NextIntlClientProvider messages={messages}>
+        {locale}
+          {children}
+        </NextIntlClientProvider>
 
       </body>
     </html>
