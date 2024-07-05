@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "./GoogleAnalytics";
 
 import { headers } from 'next/headers';
 
+
 export const metadata = {
   title: 'Responsive Clear',
   description: '簡単・高速なレスポンシブデザインチェックツール。複数デバイス同時プレビュー、カスタムサイズ設定可能。ウェブデザイナー・開発者向けの必須ツールでサイトの表示を最適化。無料で今すぐ使えます！',
