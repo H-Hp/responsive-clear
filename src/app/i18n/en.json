@@ -1,4 +1,9 @@
 {
+  "metadata": {
+    "title": "Responsive Clear",
+    "description": "Easy and fast responsive design check tool. Multiple devices simultaneous preview, custom sizing available. Essential tool for web designers and developers to optimize site display. Free to use now!",
+    "locale":"en"
+  },
   "Index": {
     "title": "Responsive Clear",
     "check-btn": "Responsive Check",

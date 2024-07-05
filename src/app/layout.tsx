@@ -46,15 +46,36 @@ export const metadata = {
 }
   */
 export async function generateMetadata({ params: { locale: localeFromRoute } }: any): Promise<Metadata> {
-  const t = await getTranslations({ "locale": localeFromRoute ?? "en", namespace: 'Index'});
+  const t = await getTranslations({ "locale": localeFromRoute ?? "en", namespace: 'metadata'});
 
   return {
     title: t('title'),
+    description: t('description'),
+  openGraph: {
+    title: t('title'),
+    description: t('description'),
+    url: 'https://responsive-clear.online',
+    siteName: t('title'),
+    images: [
+      {
+        url: 'https://responsive-clear.online/Logo.png',
+        width: 240,
+        height: 240,
+      },
+    ],
+    locale: t('locale'),
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    site: '@RollTall',
+    creator: '@RollTall',
+    title: t('title'),
+    description: t('description'),
+    images: ['https://responsive-clear.online/Logo.png'],
+  },
   };
 }
-
-//動的レンダリング矯正/vercelとnextの問題でxのシェアカードを表示させるため
-export const dynamic = 'force-dynamic'
 
 
 const faqSchema ={
@@ -78,6 +99,9 @@ const faqSchema ={
     "name": "RollTall"
   }
 }
+
+//動的レンダリング矯正/vercelとnextの問題でxのシェアカードを表示させるため
+export const dynamic = 'force-dynamic'
 
 
 
@@ -114,6 +138,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://responsive-clear.online/" />
+        <link rel="icon" href="/favicon.svg" />
+        <link rel="apple-touch-icon" sizes="256x256" href="/favicon.svg"/>
         {/* Schema.org */}
         <script type="application/ld+json">
             {JSON.stringify(faqSchema)}
