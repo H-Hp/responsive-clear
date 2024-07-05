@@ -41,11 +41,11 @@ jobs:
       # 作業に任意の名前を定義
       - name: Install dependencies
       # プロジェクトの依存関係をインストール
-        run: npm install
+        run: npm run install
       # 作業に任意の名前を定義
-      #- name: Format code
+      - name: Format code
         # Prettierでフォーマット
-        #run: npm prettier
+        run: npm run prettier
       # 作業に任意の名前を定義
       - name: Lint code
         # ESLintで静的解析の実行
