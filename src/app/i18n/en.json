@@ -1,5 +1,37 @@
 {
   "Index": {
-    "title": "Hello world!"
+    "title": "Responsive Clear",
+    "check-btn": "Responsive Check",
+    
+    "device-title1": "Phone",
+    "mobile1-info1": "iPhone6/iPhone7/iPhone8/iPhoneSE2nd/iPhoneSE3nd",
+    "mobile1-info2": "css pixel : 375 x 667",
+    "mobile1-info3": "Select foreignObject in verification mode and from the Calculated tab, you will see that the ratio is 375px : 667px.",
+    
+    "mobile2-info1": "iPhone12/iPhone12Pro/iPhone13/iPhone13Pro/iPhone14/iPhone14Pro",
+    "mobile2-info2": "css pixel : 390 x 844",
+
+    "device-title2": "Tablet",
+    "tablet1-info1": "iPad pro12.9inch model",
+    "tablet1-info2": "css pixel : 1024 × 1366",
+    
+    "device-title3": "PC",
+    "pc1-info1": "css pixel : 1024 × 1366",
+   
+    "supplement-info1": "Only devices with a high market share will be used, as too many devices will make the screen too heavy."
+  },
+  "about": {
+    "title1": "What is Responsive Clear?",
+    "title1-info": "This is a free web service that allows you to easily check the responsiveness of your site.",
+    "title2": "Main Functions",
+        "title2-sub1": "Multi-device support",
+            "title2-sub1-info": "View layouts on a variety of devices at once, including iPhone, iPad, and PC.",
+        "title2-sub2": "simple operation",
+            "title2-sub2-info": "Simply enter the URL and start checking immediately.",
+        "title2-sub3": "real-time preview",
+            "title2-sub3-info": "You can check the layout on each device in real time.",
+        "title2-sub4": "totally free",
+            "title2-sub4-info": "No registration is required and the service is completely free.",
+    "close": "close"
   }
 }

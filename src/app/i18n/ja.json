@@ -1,5 +1,37 @@
 {
   "Index": {
-    "title": "こんちは"
+    "title": "レスポンシブクリア",
+    "check-btn": "レスポンシブチェック",
+    
+    "device-title1": "スマホ",
+    "mobile1-info1": "iPhone6/iPhone7/iPhone8/iPhoneSE2nd/iPhoneSE3nd",
+    "mobile1-info2": "cssピクセル : 375 x 667",
+    "mobile1-info3": "検証モードでforeignObjectを選択し、計算済みタブから375px : 667pxの比率になっていると確認できます。",
+    
+    "mobile2-info1": "iPhone12/iPhone12Pro/iPhone13/iPhone13Pro/iPhone14/iPhone14Pro",
+    "mobile2-info2": "cssピクセル : 390 x 844",
+
+    "device-title2": "タブレット",
+    "tablet1-info1": "iPad pro12.9インチモデル",
+    "tablet1-info2": "cssピクセル : 1024 × 1366",
+    
+    "device-title3": "パソコン",
+    "pc1-info1": "cssピクセル : 1024 × 1366",
+   
+    "supplement-info1": "デバイスを増やしすぎると画面が重くなるため、シェア率の高いデバイスのみになります"
+  },
+  "about": {
+    "title1": "レスポンシブクリアとは",
+    "title1-info": "サイトのレスポンシブ性を簡単に確認できる無料Webサービスです。",
+    "title2": "主な機能",
+        "title2-sub1": "マルチデバイス対応",
+            "title2-sub1-info": "iPhone、iPad、PC など、さまざまな端末でのレイアウトを一度に確認できます。",
+        "title2-sub2": "簡単操作",
+            "title2-sub2-info": "URLを入力するだけで、すぐにチェックを開始できます。",
+        "title2-sub3": "リアルタイムプレビュー",
+            "title2-sub3-info": "各デバイスでのレイアウトをリアルタイムで確認できます。",
+        "title2-sub4": "完全無料",
+            "title2-sub4-info": "登録不要で、完全無料でご利用いただけます。",
+    "close": "閉じる"
   }
 }

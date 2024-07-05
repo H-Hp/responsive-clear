@@ -82,6 +82,7 @@ export default function Home() {
 
   //
   const t = useTranslations('Index');
+  const about = useTranslations('about');
   //return <h1>{t('title')}</h1>;
 
   return (
@@ -92,9 +93,7 @@ export default function Home() {
       >
         <TwitterShareButton />
 
-        <h1>{t('title')}</h1>
-
-        <div className="text-4xl ml-3 mr-3">ResponsiveClear</div>
+        <div className="text-4xl ml-3 mr-3">{t('title')}</div>
         <div className="flex-grow px-4 p-5">
           <input
             type="text"
@@ -111,7 +110,7 @@ export default function Home() {
             className="inline-flex w-full gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-600 font-semibold text-zinc-100 hover:bg-zinc-400 active:bg-zinc-800 active:text-zinc-100/70 my-2 uppercase active:scale-[98%] transition-transform duration-100"
             style={{ backgroundColor: "#635BFF", color: "white" }}
           >
-            レスポンシブチェック
+            {t('check-btn')}
           </button>
           {/*
   http://abehiroshi.la.coocan.jp/
@@ -168,13 +167,11 @@ export default function Home() {
           >
             <div style={{ width: 1500 }}>
               <div className="smartphone-container">
+              <h3>{t('device-title1')}</h3>
                 <div className="smartphone-item">
-                  <h3>iphone6/7/8/SE2nd/SE3nd</h3>
-                  <p>cssピクセル : 375x667</p>
-                  <p>
-                    検証モードでforeignObjectを選択し、計算済みタブから375px :
-                    667pxの比率になっていると確認できます。
-                  </p>
+                  <h3>{t('mobile1-info1')}</h3>
+                  <p>{t('mobile1-info2')}</p>
+                  <p>{t('mobile1-info3')}</p>
 
                   <svg
                     width={150}
@@ -231,10 +228,8 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="smartphone-item">
-                  <h3>
-                    iphone12/iPhone12Pro/iPhone13/iPhone13Pro/iPhone14/iPhone14Pro
-                  </h3>
-                  <p>cssピクセル : 390x844</p>
+                <h3>{t('mobile2-info1')}</h3>
+                <p>{t('mobile2-info2')}</p>
                   <svg
                     width={150}
                     height="324.6"
@@ -292,8 +287,9 @@ export default function Home() {
               </div>
 
               {/*タブレッド/iPad*/}
-              <h3>iPad pro12.9インチモデル</h3>
-              <p>cssピクセル : 1024 × 1366</p>
+              <h3>{t('device-title2')}</h3>
+              <h3>{t('tablet1-info1')}</h3>
+              <p>{t('tablet1-info2')}</p>
               <svg
                 width={300}
                 height={417}
@@ -333,8 +329,8 @@ export default function Home() {
               </svg>
 
               {/*PC*/}
-              <h3>PC</h3>
-              <p>cssピクセル : 1024 × 1366</p>
+              <h3>{t('device-title3')}</h3>
+              <p>{t('pc1-info1')}</p>
               <svg
                 width={900}
                 height={600}
@@ -368,7 +364,7 @@ export default function Home() {
                 </foreignObject>
               </svg>
               <p>
-                デバイスを増やしすぎると画面が重くなるため、シェア率の高いデバイスのみになります
+                {t('supplement-info1')}
               </p>
             </div>
           </div>
@@ -390,52 +386,51 @@ export default function Home() {
                 <br />
                 <br />
                 <h2 className="text-3xl font-bold text-center mb-8 mt-8">
-                  レスポンシブクリアとは
+                {about('title1')}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
                     <p className="text-gray-600">
-                      サイトのレスポンシブ性を簡単に確認できる無料Webサービスです。
+                    {about('title1-info')}
                     </p>
                   </div>
                 </div>
                 <br />
                 <br />
                 <h2 className="text-3xl font-bold text-center mb-8 mt-8">
-                  主な機能
+                {about('title2')}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
                     <h3 className="text-xl font-semibold text-indigo-600 mb-3">
-                      マルチデバイス対応
+                    {about('title2-sub1')}
                     </h3>
                     <p className="text-gray-600">
-                      iPhone、iPad、PC
-                      など、さまざまな端末でのレイアウトを一度に確認できます。
+                    {about('title2-sub1-info')}
                     </p>
                   </div>
                   <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
                     <h3 className="text-xl font-semibold text-indigo-600 mb-3">
-                      簡単操作
+                    {about('title2-sub2')}
                     </h3>
                     <p className="text-gray-600">
-                      URLを入力するだけで、すぐにチェックを開始できます。
+                    {about('title2-sub2-info')}
                     </p>
                   </div>
                   <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
                     <h3 className="text-xl font-semibold text-indigo-600 mb-3">
-                      リアルタイムプレビュー
+                    {about('title2-sub3')}
                     </h3>
                     <p className="text-gray-600">
-                      各デバイスでのレイアウトをリアルタイムで確認できます。
+                    {about('title2-sub3-info')}
                     </p>
                   </div>
                   <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
                     <h3 className="text-xl font-semibold text-indigo-600 mb-3">
-                      完全無料
+                    {about('title2-sub4')}
                     </h3>
                     <p className="text-gray-600">
-                      登録不要で、完全無料でご利用いただけます。
+                    {about('title2-sub4-info')}
                     </p>
                   </div>
                 </div>
@@ -448,7 +443,7 @@ export default function Home() {
               className="inline-flex w-full gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-600 font-semibold text-zinc-100 hover:bg-zinc-400 active:bg-zinc-800 active:text-zinc-100/70 my-2 uppercase active:scale-[98%] transition-transform duration-100"
               style={{ backgroundColor: "#635BFF", color: "white" }}
             >
-              閉じる
+              {about('close')}
             </button>
           </div>
         </div>

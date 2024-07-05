@@ -1,0 +1,37 @@
+{
+  "Index": {
+    "title": "响应清晰",
+    "check-btn": "检查响应性",
+    
+    "device-title1": "智能手机",
+    "mobile1-info1": "iPhone6/iPhone7/iPhone8/iPhoneSE2nd/iPhoneSE3nd",
+    "mobile1-info2": "css像素 : 375 x 667",
+    "mobile1-info3": "在验证模式下选择外来对象，从计算选项卡中可以看到比例为 375px : 667px。",
+    
+    "mobile2-info1": "iPhone12/iPhone12Pro/iPhone13/iPhone13Pro/iPhone14/iPhone14Pro",
+    "mobile2-info2": "css像素 : 390 x 844",
+
+    "device-title2": "药片",
+    "tablet1-info1": "iPad pro12.9英寸型号",
+    "tablet1-info2": "css像素 : 1024 × 1366",
+    
+    "device-title3": "个人电脑",
+    "pc1-info1": "css像素 : 1024 × 1366",
+   
+    "supplement-info1": "只使用市场占有率高的设备，因为太多设备会使屏幕过于沉重"
+  },
+  "about": {
+    "title1": "什么是响应式清除？",
+    "title1-info": "这是一项免费网络服务，可让您轻松检查网站的响应性",
+    "title2": "主要功能",
+        "title2-sub1": "支持多种设备",
+            "title2-sub1-info": "在不同设备上同时查看布局，包括 iPhone、iPad 和 PC",
+        "title2-sub2": "操作简单",
+            "title2-sub2-info": "只需输入 URL , 即可立即开始检查",
+        "title2-sub3": "实时预览",
+            "title2-sub3-info": "每个设备上的布局都可以实时查看",
+        "title2-sub4": "完全免费",
+            "title2-sub4-info": "无需注册，服务完全免费",
+    "close": "贴近"
+  }
+}

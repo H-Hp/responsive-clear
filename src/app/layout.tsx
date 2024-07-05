@@ -6,8 +6,9 @@ import { GoogleAnalytics } from "./GoogleAnalytics";
 import { headers } from 'next/headers';
 import {NextIntlClientProvider} from 'next-intl';
 import {getLocale, getMessages} from 'next-intl/server';
-
-
+import { useTranslations } from "next-intl";
+import {getTranslations} from 'next-intl/server';
+/*
 export const metadata = {
   title: 'Responsive Clear',
   description: '簡単・高速なレスポンシブデザインチェックツール。複数デバイス同時プレビュー、カスタムサイズ設定可能。ウェブデザイナー・開発者向けの必須ツールでサイトの表示を最適化。無料で今すぐ使えます！',
@@ -42,6 +43,14 @@ export const metadata = {
     description: 'サイトのレスポンシブチェックツール',
     images: ['https://responsive-clear.online/Logo.png'],
   },
+}
+  */
+export async function generateMetadata({ params: { locale: localeFromRoute } }: any): Promise<Metadata> {
+  const t = await getTranslations({ "locale": localeFromRoute ?? "en", namespace: 'Index'});
+
+  return {
+    title: t('title'),
+  };
 }
 
 //動的レンダリング矯正/vercelとnextの問題でxのシェアカードを表示させるため
@@ -97,7 +106,6 @@ export default async function RootLayout({
  
   //i18n化
   const locale = await getLocale();
- 
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
@@ -122,6 +130,7 @@ export default async function RootLayout({
           hrefLang="en"
           href={fullUrl}
         />
+        {/*zh-CN, 中国語(簡体字)*/}
         <link
           rel="alternate"
           hrefLang="zh-CN"
@@ -137,8 +146,7 @@ export default async function RootLayout({
       </head>
       <body>
       
-      <NextIntlClientProvider messages={messages}>
-        {locale}
+        <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
 
