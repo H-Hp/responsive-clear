@@ -3,6 +3,8 @@ import './globals.css'
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "./GoogleAnalytics";
 
+import { headers } from 'next/headers';
+
 export const metadata = {
   title: 'Responsive Clear',
   description: '簡単・高速なレスポンシブデザインチェックツール。複数デバイス同時プレビュー、カスタムサイズ設定可能。ウェブデザイナー・開発者向けの必須ツールでサイトの表示を最適化。無料で今すぐ使えます！',
@@ -67,11 +69,25 @@ const faqSchema ={
 
 
 
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+
+  
+  let fullUrl;
+  // サーバーサイドレンダリング時
+  if (typeof window === 'undefined') {
+    const headersList = headers();
+    const domain = headersList.get('host') || '';
+    fullUrl = `${headersList.get('x-forwarded-proto')}://${domain}${headersList.get('x-invoke-path')}`;
+    //return <div>完全なURL（サーバーサイド）: {fullUrl}</div>;
+  }
+
+  // クライアントサイドレンダリング時
+  //return <div>完全なURL（クライアントサイド）: {fullUrl}</div>;
 
   return (
     <html lang="jp">
@@ -81,9 +97,11 @@ export default function RootLayout({
         <script type="application/ld+json">
             {JSON.stringify(faqSchema)}
         </script>
+        
         <GoogleAnalytics />
       </head>
       <body>
+      {fullUrl}
         {children}
 
       </body>

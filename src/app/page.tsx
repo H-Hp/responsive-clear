@@ -5,9 +5,6 @@ import styles from "./page.module.css";
 import React, { useState } from "react";
 import { useEffect, useCallback, useRef} from "react";
 import TwitterShareButton from "./components/TwitterShareButton";
-//mport { useSearchParams } from 'next/navigation'
-import { headers } from 'next/headers';
-import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -82,15 +79,8 @@ export default function Home() {
   }, [isModalOpen, handleOutsideClick]);
 
 
-
-  const pathname = usePathname();
-
-
-
   return (
     <div className="flex flex-col justify-between h-screen mx-auto max-w-full">
-      {window.location.href}
-      {pathname}
       <header
         className="flex items-center justify-center text-gray-200 text-2xl my-5"
         style={{ color: "black", margin: 0 }}
