@@ -8,6 +8,8 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getLocale, getMessages} from 'next-intl/server';
 import { useTranslations } from "next-intl";
 import {getTranslations} from 'next-intl/server';
+import Script from "next/script";
+
 /*
 export const metadata = {
   title: 'Responsive Clear',
@@ -141,10 +143,18 @@ export default async function RootLayout({
         <link rel="canonical" href="https://responsive-clear.online/" />
         <link rel="icon" href="/favicon.svg" />
         <link rel="apple-touch-icon" sizes="256x256" href="/favicon.svg"/>
-        {/* Schema.org */}
+        {/* Schema.org 
         <script type="application/ld+json">
             {JSON.stringify(faqSchema)}
         </script>
+          */}
+        <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
 
         {/* 多言語・hreflangタグ --> */}
         <link
