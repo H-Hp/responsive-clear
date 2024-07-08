@@ -1,0 +1,127 @@
+---
+- hosts: all
+  become: yes #権限昇格してsudo使えるようにする
+  vars:
+    node_version: "18.14.1"
+    project_path: "/home/ec2-user/nextjs-responsive-clear"
+  tasks:
+    - name: hello
+      shell: echo "hello"
+
+    #- name: rm yum cache
+    #  shell: sudo rm -R /var/cache/yum/x86_64/2/nodesource/
+
+    #Amazon Linux Extrasのトピックnginxを有効にする
+    #- name: Enable amzn2extra-nginx repository
+    #  ansible.builtin.shell: amazon-linux-extras enable nginx1
+    #  changed_when: false
+
+        
+  
+    - name: Install Node.js repository
+      shell: |
+        sudo yum install -y gcc-c++ make
+        curl -sL https://deb.nodesource.com/setup_{{ node_version }} | sudo -E bash -
+         yum install -y nodejs
+
+    - name: Install Node.js and npm
+      yum:
+        name: 
+          - nodejs
+          - gcc-c++
+          - make
+        state: present
+
+
+    - name: Install git
+      yum:
+        name: git
+        state: present
+
+    - name: Install Next.js
+      npm:
+        name: next
+        global: yes
+
+    - name: Check Node.js and npm installation
+      shell: |
+        node --version
+        npm --version
+      register: node_npm_version
+
+    - debug:
+        var: node_npm_version.stdout_lines
+
+    - name: Install pip on Debian/Ubuntu
+      yum:
+        name: 
+          - python3-pip
+        state: present
+
+    - name: Install pexpect on the target node
+      pip:
+        name: pexpect
+        state: present
+      
+    - name: Create project directory
+      file:
+          path: "{{ project_path }}"
+          state: directory
+          mode: '0755'
+
+    - name: Clone/Pull Next.js project from GitHub
+      git:
+          repo: "https://github.com/H-Hp/responsive-clear"
+          dest: "{{ project_path }}"
+          version: main  # または使用するブランチ/タグ
+          force: yes
+
+    - name: Install Node.js dependencies
+      npm:
+        path: "{{ project_path }}"
+
+    - name: Build the Next.js application
+      command: npm run build
+      args:
+        chdir: '{{ project_path }}'
+
+    - name: Start the Next.js application
+      command: npm run start
+      args:
+        chdir: '{{ project_path }}'
+
+#    - name: Start Next.js development server
+#      command: npm run dev
+#      args:
+      #chdir: "{{ project_path }}"
+#      async: 1000
+#      poll: 0
+    #echo -e "\n" | npx create-next-app responsive-clear
+#    - name: Create Next.js project
+      #shell: |
+      #command: echo -e "\n" | npm init next-app responsive-clear
+#      expect:
+#        command: npx create-next-app responsive-clear --typescript --eslint --tailwind --src-dir --app --import-alias "@/*"
+#        responses:
+#          'Would you like to use TypeScript': 'y\n'
+#          'Would you like to use ESLint': 'y\n'
+#          'Would you like to use Tailwind CSS': 'y\n'
+#          'Would you like to use `src/` directory': 'y\n'
+#          'Would you like to use App Router': 'y\n'
+#          'Would you like to customize the default import alias': '\n'
+#          'Would you like to use experimental `app/` directory with this project': 'y\n'
+#        timeout: 300
+#      args:
+#        chdir: /home/ec2-user
+#        creates: /home/ec2-user/my-next-app
+
+#    - name: Install project dependencies
+#      npm:
+#        path: /home/ec2-user/my-next-app
+
+#    - name: Start Next.js application
+#      shell: npm run dev
+#      async: 1000
+#      poll: 0
+#      args:
+#        chdir: /home/ec2-user/my-next-app
