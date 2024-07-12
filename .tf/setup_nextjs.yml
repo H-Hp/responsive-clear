@@ -1,9 +1,14 @@
 ---
 - hosts: all
+#- hosts: localhost
   become: yes #権限昇格してsudo使えるようにする
   vars:
     node_version: "18.14.1"
     project_path: "/home/ec2-user/nextjs-responsive-clear"
+    node_exporter_version: "1.5.0"
+    node_exporter_arch: "linux-amd64"
+    node_exporter_download_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.{{ node_exporter_arch }}.tar.gz"
+
   tasks:
     - name: hello
       shell: echo "hello"
@@ -16,13 +21,47 @@
     #  ansible.builtin.shell: amazon-linux-extras enable nginx1
     #  changed_when: false
 
-        
-  
-    - name: Install Node.js repository
-      shell: |
-        sudo yum install -y gcc-c++ make
-        curl -sL https://deb.nodesource.com/setup_{{ node_version }} | sudo -E bash -
-         yum install -y nodejs
+
+    - name: Node Exporterユーザーを作成
+      user:
+        name: node_exporter
+        system: yes
+        shell: /sbin/nologin
+        create_home: no
+
+    - name: Node Exporterをダウンロードして解凍
+      unarchive:
+        src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.{{ node_exporter_arch }}.tar.gz"
+        dest: /tmp
+        remote_src: yes  # リモートからダウンロード
+
+    - name: Node Exporterバイナリを移動
+      copy:
+        src: "/tmp/node_exporter-{{ node_exporter_version }}.{{ node_exporter_arch }}/node_exporter"
+        dest: /usr/local/bin/node_exporter
+        owner: node_exporter
+        group: node_exporter
+        mode: '0755'
+        remote_src: yes  # リモートファイルをコピー
+
+    - name: Node Exporterのsystemdサービスファイルを作成
+      template:
+        src: node_exporter.service.j2  # テンプレートファイル（別途作成が必要）
+        dest: /etc/systemd/system/node_exporter.service
+        mode: '0644'
+
+    - name: systemdをリロード
+      systemd:
+        daemon_reload: yes
+
+    - name: Node Exporterサービスを有効化して起動
+      systemd:
+        name: node_exporter
+        state: started
+        enabled: yes
+
+
+
 
     - name: Install Node.js and npm
       yum:
@@ -125,3 +164,4 @@
 #      poll: 0
 #      args:
 #        chdir: /home/ec2-user/my-next-app
+

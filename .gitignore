@@ -39,7 +39,7 @@ yarn-error.log*
 next-env.d.ts
 
 
-
+prometheus.yml
 
 #Terraform関係
 # Local .terraform directories
