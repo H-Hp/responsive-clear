@@ -8,7 +8,10 @@
     node_exporter_version: "1.5.0"
     node_exporter_arch: "linux-amd64"
     node_exporter_download_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.{{ node_exporter_arch }}.tar.gz"
-
+    promtail_version: "2.4.2"
+    promtail_config_dir: "/etc/promtail"
+    promtail_config_file: "{{ promtail_config_dir }}/config.yml"
+    loki_push_url: "http://YOUR_LOKI_IP:3100/loki/api/v1/push"
   tasks:
     - name: hello
       shell: echo "hello"
@@ -21,7 +24,16 @@
     #  ansible.builtin.shell: amazon-linux-extras enable nginx1
     #  changed_when: false
 
+    #Loki用のPromtailセットアップ
 
+
+
+
+
+    #ここまでLoki用のPromtailセットアップ
+
+
+    #Prometheus用のnode_exporterセットアップ
     - name: Node Exporterユーザーを作成
       user:
         name: node_exporter
@@ -59,10 +71,11 @@
         name: node_exporter
         state: started
         enabled: yes
+    #ここまでPrometheus用のnode_exporterセットアップ
 
 
 
-
+    #Next.js用のセットアップ
     - name: Install Node.js and npm
       yum:
         name: 
@@ -128,6 +141,7 @@
       command: npm run start
       args:
         chdir: '{{ project_path }}'
+    #ここまでNext.js用のセットアップ
 
 #    - name: Start Next.js development server
 #      command: npm run dev
