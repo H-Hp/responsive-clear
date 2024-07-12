@@ -24,13 +24,7 @@
     #  ansible.builtin.shell: amazon-linux-extras enable nginx1
     #  changed_when: false
 
-    #Loki用のPromtailセットアップ
 
-
-
-
-
-    #ここまでLoki用のPromtailセットアップ
 
 
     #Prometheus用のnode_exporterセットアップ
@@ -72,7 +66,6 @@
         state: started
         enabled: yes
     #ここまでPrometheus用のnode_exporterセットアップ
-
 
 
     #Next.js用のセットアップ
@@ -136,6 +129,61 @@
       command: npm run build
       args:
         chdir: '{{ project_path }}'
+
+
+    #Loki用のPromtailセットアップ
+
+  tasks:
+    - name: Create Promtail directory
+      file:
+        path: "{{ promtail_config_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download Promtail
+      get_url:
+        url: "https://github.com/grafana/loki/releases/download/v{{ promtail_version }}/promtail-linux-amd64.zip"
+        dest: "/tmp/promtail-linux-amd64.zip"
+        mode: '0644'
+
+    - name: Unzip Promtail
+      unarchive:
+        src: "/tmp/promtail-linux-amd64.zip"
+        dest: "/usr/local/bin"
+        remote_src: yes
+        mode: '0755'
+        creates: "/usr/local/bin/promtail"
+
+    - name: Create Promtail configuration
+      template:
+        src: promtail-config.yml.j2
+        dest: "{{ promtail_config_file }}"
+        mode: '0644'
+      notify: Restart Promtail
+
+    - name: Create Promtail systemd service
+      template:
+        src: promtail.service.j2
+        dest: /etc/systemd/system/promtail.service
+        mode: '0644'
+      notify: Restart Promtail
+
+    - name: Ensure Promtail service is enabled and started
+      systemd:
+        name: promtail
+        enabled: yes
+        state: started
+        daemon_reload: yes
+
+  handlers:
+    - name: Restart Promtail
+      systemd:
+        name: promtail
+        state: restarted
+      #when: promtail_config.changed or promtail_service.changed
+    #ここまでLoki用のPromtailセットアップ
+
+
 
     - name: Start the Next.js application
       command: npm run start

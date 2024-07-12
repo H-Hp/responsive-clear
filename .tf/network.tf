@@ -97,7 +97,7 @@ resource "aws_security_group" "sg" {
     from_port   = 9080
     to_port     = 9080
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Node Exporter用
+    cidr_blocks = ["0.0.0.0/0"]  # LokiのPromtail用
   }
 
   #アウトバウンドルール

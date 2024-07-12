@@ -1,9 +1,9 @@
 # ec2.tf
 
 resource "null_resource" "generate_ssh_key" {
- provisioner "local-exec" {
-    command = "ssh-keygen -t rsa -f ec2-keypair -y"
-  }
+ #provisioner "local-exec" {
+ #   command = "ssh-keygen -t rsa -f ec2-keypair -y"
+ # }
 
   # キーが既に存在する場合は再生成しないようにする
   triggers = {
@@ -55,8 +55,8 @@ resource "aws_instance" "main" {
     #command = "ansible-playbook -i '${self.public_ip},' --private-key ${path.module}/.ssh/ec2-keypair setup_nextjs.yml"
     #command = "ansible-playbook -i '${self.public_ip},' --private-key file('~/.ssh/ec2-keypair') setup_nextjs.yml"
     #command = "ansible-playbook -i '${self.public_ip},' --private-key ${var.ssh_private_key_path} setup_nextjs.yml"
-    command = "ansible-playbook -i '${self.public_ip},' -u ec2-user --private-key ${var.ssh_private_key_path} setup_nextjs.yml"
-
+    #command = "ansible-playbook -i '${self.public_ip},' -u ec2-user --private-key ${var.ssh_private_key_path} setup_nextjs.yml"
+    command = "LOKI_IP=${self.public_ip} ansible-playbook -i '${self.public_ip},' -u ec2-user --private-key ${var.ssh_private_key_path} setup_nextjs.yml"
   }
 
 }
